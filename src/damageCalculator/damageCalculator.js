@@ -1,27 +1,28 @@
 import React from "react";
-import SkillList from "./skillList"
+import DamageCalculatorForm from "./damageCalculatorForm";
 
 class DamageCalculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentSkill: null
+            currentSkillPower: null,
+            currentMainstatValue: 3
         }
     }
 
-    handleSkillSelect(selectedSkill) {
+    handleSkillSelect(selectSkillEvent) {
         this.setState({
-            currentSkill: selectedSkill.target.value
+            [selectSkillEvent.target.name]: selectSkillEvent.target.value
         });
     }
 
     render() {
         return(
-            <div className="damagecalc">
-                <div className="skillList">
-                    <SkillList onChange={(skill) => this.handleSkillSelect(skill)}/>
-                </div>
-            </div>
+            <React.Fragment>
+                <DamageCalculatorForm onChange={(event) => this.handleSkillSelect(event)} />
+                <h1>{this.state.currentSkillPower}</h1>
+                <h1>{this.state.currentMainstatValue}</h1>
+            </React.Fragment>
         );
     }
 }

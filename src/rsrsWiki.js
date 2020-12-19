@@ -1,20 +1,23 @@
 import React from "react";
 import Header from './header/header';
 import HomePage from "./homePage/homePage";
+import NotFoundPage from "./notFoundPage/notFoundPage";
 import DamageCalculator from "./damageCalculator/damageCalculator"
 import {
     BrowserRouter as Router,
     Route,
-    Redirect
+    Switch
 } from 'react-router-dom';
 
 function RsrsWiki() {
     return(
         <Router>
-            <Route path="/" component={Header} />
-            <Route exact path="/" render={() => <Redirect to="/home" />} />
-            <Route exact path="/home" component={HomePage} />
-            <Route exact path="/hei" component={DamageCalculator} />
+            <Route component={Header} />
+            <Switch>
+                <Route exact path="/" component={HomePage} />
+                <Route exact path="/calc" component={DamageCalculator} />
+                <Route component={NotFoundPage} />
+            </Switch>
         </Router>
     );
 }
