@@ -1,30 +1,16 @@
 import Form from "react-bootstrap/Form";
 import React from "react";
 import {Skills} from "./data/skills";
-
-
-function MainstatInputField(props) {
-    return(
-        <Form.Group controlId="mainstatInputField">
-            <Form.Label>Mainstat value</Form.Label>
-            <Form.Control
-                as="input"
-                type="number"
-                name="currentMainstatValue"
-                onChange={props.onChange}
-            />
-        </Form.Group>
-    );
-}
+import "./damageCalculatorForm.css"
 
 function SkillList(props) {
     return(
-        <Form.Group controlId="skillList">
+        <Form.Group controlId="skillList" className="skillList">
             <Form.Label>Skill List</Form.Label>
             <Form.Control as="select" name="currentSkillPower" onChange={props.onChange}>
                 {Skills.skills.map((skill) => {
                     return (
-                        <option key={skill.name} value={skill.power}>
+                        <option key={skill.name} value={[skill.power, skill.classType]}>
                             {skill.name}
                         </option>
                     );
@@ -34,13 +20,27 @@ function SkillList(props) {
     );
 }
 
-function DamageCalculatorForm(props) {
+function MainstatInputField(props) {
     return(
-        <Form>
-            <SkillList onChange={props.onChange}/>
-            <MainstatInputField onChange={props.onChange}/>
-        </Form>
-    )
+        <Form.Group controlId="mainstatInputField" className="mainstatInputField">
+            {props.mainstat.map((mainstat) => {
+                return (
+                    <React.Fragment>
+                        <Form.Label>Input {mainstat}</Form.Label>
+                        <Form.Control
+                            as="input"
+                            type="number"
+                            name={mainstat}
+                            onChange={props.onChange}
+                        />
+                    </React.Fragment>
+                );
+            })}
+        </Form.Group>
+    );
 }
 
-export default DamageCalculatorForm
+export {
+    SkillList,
+    MainstatInputField
+}
